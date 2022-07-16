@@ -1,10 +1,12 @@
-// ⏰ Feature 1
-
 let now = new Date();
 
 let hours = now.getHours();
 
 let minutes = now.getMinutes();
+
+if (minutes < 10) {
+  minutes = `0${minutes}`;
+}
 
 let days = [
   "Sunday",
@@ -13,14 +15,12 @@ let days = [
   "Wednesday",
   "Thursday",
   "Friday",
-  "Saturday"
+  "Saturday",
 ];
 let day = days[now.getDay()];
 
 let currentDateTime = document.querySelector("#currentDateTime");
 currentDateTime.innerHTML = `${day} ${hours}:${minutes}`;
-
-// 🕵️‍♀️ Feature 2
 
 function searchCity(event) {
   event.preventDefault();
@@ -42,8 +42,28 @@ cityForm.addEventListener("submit", searchCity);
 function showTemperature(response) {
   let temp = Math.round(response.data.main.temp);
   let h1 = document.querySelector("#cityTemp");
-  h1.innerHTML = `${temp}°C`;
+
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+
+  h1.innerHTML = `${temp}`;
+  humidityElement.innerHTML = response.data.main.humidity;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
 }
 
 let key = "4d28e6453aac33727582159ed0a68d45";
 let units = "metric";
+
+//
+
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#cityTemp");
+  temperatureElement.innerHTML = 66;
+}
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#cityTemp");
+  temperatureElement.innerHTML = 19;
+}
